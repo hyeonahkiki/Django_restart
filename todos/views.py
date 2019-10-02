@@ -5,7 +5,7 @@ def index(request):
     todos = Todo.objects.all()
     context = {
         'todos' : todos,
-        
+
     }
     return render(request, 'index.html', context)
 
@@ -20,5 +20,11 @@ def create(request):
     todo.title = title
     todo.due_date = due_date
     todo.save()
+
+    return redirect('/todos/')
+
+def delete(request, id):
+    todo = Todo.objects.get(id=id)
+    todo.delete()
 
     return redirect('/todos/')
